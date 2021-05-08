@@ -13,6 +13,7 @@ CFLAGS	+=  -pedantic						\
 			-fsanitize=undefined		 	\
 			-fsanitize=address  			\
 			-Ideps/mulib/inc				\
+			-Isrc/
 
 LDFLAGS	+=  -lreadline						\
 			-lm 							\
