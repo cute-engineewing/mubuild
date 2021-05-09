@@ -38,7 +38,7 @@ BUILD_DIRECTORY ?= build
 
 $(BUILD_DIRECTORY)/%.c.o: %.c
 	$(DIRECTORY_GUARD)
-	$(CC) $(CFLAGS) -r -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(TARGET): $(OBJS) deps/mulib/libmu.a
 	$(DIRECTORY_GUARD)
