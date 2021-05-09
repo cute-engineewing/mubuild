@@ -52,7 +52,8 @@ deps/mulib/libmu.a: deps/mulib
 # --- TESTS ------------------------------------------------------------------ #
 
 TEST_SRCS	= $(wildcard tests/*.c)
-TEST_OBJS   = $(patsubst %.c, $(BUILD_DIRECTORY)/%.c.o, $(TEST_SRCS))
+TEST_OBJS   = $(patsubst %.c, $(BUILD_DIRECTORY)/%.c.o, $(TEST_SRCS)) $(OBJS)
+TEST_OBJS  := $(filter-out $(BUILD_DIRECTORY)/src/main.c.o, $(TEST_OBJS))
 
 test: LDFLAGS	+= -lcmocka --coverage
 test: CFLAGS    += --coverage
