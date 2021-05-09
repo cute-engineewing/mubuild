@@ -18,7 +18,7 @@ CFLAGS	+=  -pedantic						\
 LDFLAGS	+=  -lreadline						\
 			-lm 							\
 			-Ldeps/mulib					\
-			-lmu							\
+			-l:libmu.a						\
 			-fsanitize=undefined			\
 			-fsanitize=address
 
