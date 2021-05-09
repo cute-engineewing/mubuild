@@ -3,7 +3,8 @@
 # --- TOOLCHAIN -------------------------------------------------------------- #
 
 CC		?=	gcc
-CFLAGS	+=  -pedantic						\
+CFLAGS	+=  -std=c99 						\
+			-pedantic						\
 			-Wpedantic						\
 			-Wall							\
 			-Wextra							\
