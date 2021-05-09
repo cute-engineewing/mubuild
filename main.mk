@@ -64,7 +64,7 @@ test: CFLAGS    += --coverage
 all: $(TARGET)
 
 .PHONY: test
-test: $(TEST_OBJS)
+test: $(TEST_OBJS) deps/mulib/libmu.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 	@./$@
 
