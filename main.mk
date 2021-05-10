@@ -14,12 +14,15 @@ CFLAGS	+=  -std=c99 						\
 			-fsanitize=undefined		 	\
 			-fsanitize=address  			\
 			-Ideps/mulib/inc				\
+			-Ideps/mutest/inc				\
 			-Isrc/
 
 LDFLAGS	+=  -lreadline						\
 			-lm 							\
 			-Ldeps/mulib					\
+			-Ldeps/mutest					\
 			-l:libmu.a						\
+			-l:libmutest.a						\
 			-fsanitize=undefined			\
 			-fsanitize=address
 
@@ -50,13 +53,16 @@ $(TARGET): $(OBJS) deps/mulib/libmu.a
 deps/mulib/libmu.a: deps/mulib
 	$(MAKE) -C deps/mulib all
 
+deps/mutest/libmutest.a:
+	$(MAKE) -C deps/mutest all
+
 # --- TESTS ------------------------------------------------------------------ #
 
 TEST_SRCS	= $(wildcard tests/*.c)
 TEST_OBJS   = $(patsubst %.c, $(BUILD_DIRECTORY)/%.c.o, $(TEST_SRCS)) $(OBJS)
 TEST_OBJS  := $(filter-out $(BUILD_DIRECTORY)/src/main.c.o, $(TEST_OBJS))
 
-test: LDFLAGS	+= -lcmocka --coverage
+test: LDFLAGS	+= --coverage
 test: CFLAGS    += --coverage
 
 # --- PHONIES ---------------------------------------------------------------- #
@@ -65,7 +71,7 @@ test: CFLAGS    += --coverage
 all: $(TARGET)
 
 .PHONY: test
-test: $(TEST_OBJS) deps/mulib/libmu.a
+test: $(TEST_OBJS) deps/mulib/libmu.a  deps/mutest/libmutest.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 	@./$@
 
@@ -79,3 +85,4 @@ clean:
 	-rm *.gcno
 
 	$(MAKE) -C deps/mulib clean
+	$(MAKE) -C deps/mutest clean
